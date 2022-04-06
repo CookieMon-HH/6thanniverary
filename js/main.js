@@ -231,8 +231,19 @@
                 // console.log('0 play');
                 let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
                 objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
-                x_incanvas = 0.5*(objs.canvas.width - objs.videoImages[sequence].width);
-                objs.context.drawImage(objs.videoImages[sequence],0,0,1920,1080,x_incanvas,0,objs.canvas.width,objs.canvas.height);
+                
+                imagewidth = objs.videoImages[sequence].width;
+                imageheight = objs.videoImages[sequence].height;
+
+                x_incanvas = 0.5*(objs.canvas.width - imagewidth);
+                y_incanvas = 0.5*(objs.canvas.height - imageheight);
+
+                // objs.context.drawImage(objs.videoImages[sequence],0,0,imagewidth,imageheight,x_incanvas,y_incanvas,objs.canvas.width,objs.canvas.height);
+                objs.context.drawImage(objs.videoImages[sequence],0,0,imagewidth,imageheight,0,0,objs.canvas.width,objs.canvas.height);
+
+                objs.canvas.style.height = `150vh`;
+                objs.canvas.style.width = `150vw`;
+
                 objs.canvas.style.opacity = calcValues(values.canvas_opcaity, currentYOffset);
 
                 if(scrollRatio <= 0.22) {
@@ -274,8 +285,16 @@
                 // console.log('2 play');
                 let sequence2 = Math.round(calcValues(values.imageSequence, currentYOffset));
                 objs.context.clearRect(0, 0, objs.canvas.width, objs.canvas.height);
+
+                imagewidth = objs.videoImages[sequence2].width;
+                imageheight = objs.videoImages[sequence2].height;
+
                 x_incanvas = 0.5*(objs.canvas.width - objs.videoImages[sequence2].width);
-                objs.context.drawImage(objs.videoImages[sequence2],0,0,1920,1080,x_incanvas,0,objs.canvas.width,objs.canvas.height);
+                
+                objs.context.drawImage(objs.videoImages[sequence2],0,0,imagewidth,imageheight,0,0,objs.canvas.width,objs.canvas.height);
+
+                objs.canvas.style.height = `150vh`;
+                objs.canvas.style.width = `150vw`;
 
                 if(scrollRatio <= 0.5){
                     //in
@@ -365,6 +384,7 @@
                 let step = 0;
                 // console.log('3 play');
                 // 가로 세로 모두 꽉 차게 하기 위해 여기서 세팅 (계산 필요)
+
                 const widthRatio = window.innerWidth / objs.canvas.width;
                 const heightRatio = window.innerHeight / objs.canvas.height;
                 let canvasScaleRatio;
@@ -378,7 +398,15 @@
                 }
                 objs.canvas.style.transform=`scale(${canvasScaleRatio})`;
                 objs.context.fillStyle = 'white';
-                objs.context.drawImage(objs.images[0],0,0);
+
+                imagewidth = objs.images[0].width;
+                imageheight = objs.images[0].height;
+                
+                objs.context.drawImage(objs.images[0],0,0,imagewidth,imageheight,0,0,objs.canvas.width,objs.canvas.height);
+                
+                // objs.canvas.style.height = `150vh`;
+                // objs.canvas.style.width = `150vw`;
+
                 
                 // 캔버스 사이즈에 맞춰 가정한 innerWidth와 innerHeight 
                 // -> 이 박스도 canvas 안에 들어가있으므로 스케일이 조정된 상태, ratio로 나눠줘서 원래대로 돌려줘야 한다.
@@ -397,7 +425,7 @@
                     values.rect2X[2].end = values.rectStartY / scrollHeight;
                 }
                 
-                const whiteRecWidth = recalculatedInnerWidth * 0.15;
+                const whiteRecWidth = recalculatedInnerWidth * 0.4;
 
                 //가려줄 박스를 그리기 위한 변수 세팅 (캔버스를 기준으로 계산한 생성할 박스의 좌상단 꼭지점 위치)
                 values.rect1X[0]= (objs.canvas.width - recalculatedInnerWidth)/2 ;
@@ -507,10 +535,25 @@
     window.addEventListener('load', ()=>{
         setLayout();
         x_incanvas = 0.5*(sceneInfo[0].objs.canvas.width - sceneInfo[0].objs.videoImages[0].width);
-        sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0],0,0,1920,1080,x_incanvas,0,sceneInfo[0].objs.canvas.width,sceneInfo[0].objs.canvas.height);
+        imagewidth = sceneInfo[0].objs.videoImages[0].width;
+        imageheight = sceneInfo[0].objs.videoImages[0].height;
+
+        sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0],0,0,imagewidth,imageheight,0,0,sceneInfo[0].objs.canvas.width,sceneInfo[0].objs.canvas.height);
+        sceneInfo[0].objs.canvas.style.height = `150vh`;
+        sceneInfo[0].objs.canvas.style.width = `150vw`;
         
     });
-    window.addEventListener('resize', setLayout);
+    window.addEventListener('resize', ()=> {
+        if(window.innerWidth > 900) {
+            setLayout()
+            sceneInfo[3].values.rectStartY = 0;
+        }
+    });
+
+    window.addEventListener('orientationchange', ()=> {
+            serTimeout(setLayout, 500);
+        }
+    );
     
 })();
 // 스크롤 영역을 배열로 지정
