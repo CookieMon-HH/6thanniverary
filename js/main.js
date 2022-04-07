@@ -549,8 +549,13 @@
         sceneInfo[0].objs.canvas.style.height = `100vh`;
         sceneInfo[0].objs.canvas.style.width = `100vw`;
 
-        var audio = new Audio(`./music/gsoulnatural.mp3`);
-        audio.play();
+        // var audio = new Audio(`./music/gsoulnatural.mp3`);
+        // audio.play();
+        var sound = new Howl({
+            // src: [`./music/gsoulnatural.mp3`]
+            src: [`https://soundcloud.com/sadpersonneedlove/gsoul-natural?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing`]
+            });
+        sound.play();
         
     });
     window.addEventListener('resize', ()=> {
