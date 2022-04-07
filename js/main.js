@@ -5,6 +5,7 @@
     let prevScrollHeight = 0; //현재 스크롤 위치 보다 이전에 위치한 스크롤 섹션들의 스크롤 높이의 합
     let currentScene = 0; //현재 활성화 된 씬 (scroll-section)
     let enterNewScene = false; //새로운 scene이 시작된 순간 true
+    var audio = new Audio(`./music/gsoulnatural.mp3`);
 
     const sceneInfo = [
         {
@@ -548,16 +549,17 @@
         sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0],0,0,imagewidth,imageheight,0,0,sceneInfo[0].objs.canvas.width,sceneInfo[0].objs.canvas.height);
         sceneInfo[0].objs.canvas.style.height = `100vh`;
         sceneInfo[0].objs.canvas.style.width = `100vw`;
-
-        // var audio = new Audio(`./music/gsoulnatural.mp3`);
-        // audio.play();
-        var sound = new Howl({
-            // src: [`./music/gsoulnatural.mp3`]
-            src: [`https://soundcloud.com/sadpersonneedlove/gsoul-natural?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing`]
-            });
-        sound.play();
         
     });
+
+    document.querySelector('.music-play').addEventListener('click', function(){
+        audio.play();
+    });
+
+    document.querySelector('.music-pause').addEventListener('click', function(){
+        audio.pause();
+    });
+
     window.addEventListener('resize', ()=> {
         if(window.innerWidth > 900) {
             setLayout()
