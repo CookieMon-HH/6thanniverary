@@ -186,8 +186,10 @@
         document.body.setAttribute('id',`show-scene-${currentScene}`);
 
         const heightRatio = window.innerHeight / 1080;
-        sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%,-50%,0px) scale(${heightRatio})`;
-        sceneInfo[2].objs.canvas.style.transform = `translate3d(-50%,-50%,0px) scale(${heightRatio})`;
+        // sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%,-50%,0px) scale(${heightRatio})`;
+        // sceneInfo[2].objs.canvas.style.transform = `translate3d(-50%,-50%,0px) scale(${heightRatio})`;
+        sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%,-50%,0px)`;
+        sceneInfo[2].objs.canvas.style.transform = `translate3d(-50%,-50%,0px)`;
         //css로 top 0 설정을 해주면 기존 사이즈에 맞춰서 맞추고 스케일을 줄이기 때문에 css에 top,left를 50%로 하고(.sticky-elem-canvas canvas) 여기서 -50%를 다시 해줌
     }
 
@@ -235,14 +237,11 @@
                 imagewidth = objs.videoImages[sequence].width;
                 imageheight = objs.videoImages[sequence].height;
 
-                x_incanvas = 0.5*(objs.canvas.width - imagewidth);
-                y_incanvas = 0.5*(objs.canvas.height - imageheight);
-
                 // objs.context.drawImage(objs.videoImages[sequence],0,0,imagewidth,imageheight,x_incanvas,y_incanvas,objs.canvas.width,objs.canvas.height);
                 objs.context.drawImage(objs.videoImages[sequence],0,0,imagewidth,imageheight,0,0,objs.canvas.width,objs.canvas.height);
 
-                objs.canvas.style.height = `150vh`;
-                objs.canvas.style.width = `150vw`;
+                objs.canvas.style.height = `100vh`;
+                objs.canvas.style.width = `100vw`;
 
                 objs.canvas.style.opacity = calcValues(values.canvas_opcaity, currentYOffset);
 
@@ -288,13 +287,24 @@
 
                 imagewidth = objs.videoImages[sequence2].width;
                 imageheight = objs.videoImages[sequence2].height;
-
-                x_incanvas = 0.5*(objs.canvas.width - objs.videoImages[sequence2].width);
                 
                 objs.context.drawImage(objs.videoImages[sequence2],0,0,imagewidth,imageheight,0,0,objs.canvas.width,objs.canvas.height);
 
-                objs.canvas.style.height = `150vh`;
-                objs.canvas.style.width = `150vw`;
+                objs.canvas.style.height = `100vh`;
+                objs.canvas.style.width = `100vw`;
+
+
+                imagewidth = objs.videoImages[sequence].width;
+                imageheight = objs.videoImages[sequence].height;
+
+                x_incanvas = 0.5*(objs.canvas.width - imagewidth);
+                y_incanvas = 0.5*(objs.canvas.height - imageheight);
+
+                // objs.context.drawImage(objs.videoImages[sequence],0,0,imagewidth,imageheight,x_incanvas,y_incanvas,objs.canvas.width,objs.canvas.height);
+                objs.context.drawImage(objs.videoImages[sequence],0,0,imagewidth,imageheight,0,0,objs.canvas.width,objs.canvas.height);
+
+                objs.canvas.style.height = `100vh`;
+                objs.canvas.style.width = `100vw`;
 
                 if(scrollRatio <= 0.5){
                     //in
@@ -404,9 +414,6 @@
                 
                 objs.context.drawImage(objs.images[0],0,0,imagewidth,imageheight,0,0,objs.canvas.width,objs.canvas.height);
                 
-                // objs.canvas.style.height = `150vh`;
-                // objs.canvas.style.width = `150vw`;
-
                 
                 // 캔버스 사이즈에 맞춰 가정한 innerWidth와 innerHeight 
                 // -> 이 박스도 canvas 안에 들어가있으므로 스케일이 조정된 상태, ratio로 나눠줘서 원래대로 돌려줘야 한다.
@@ -539,8 +546,11 @@
         imageheight = sceneInfo[0].objs.videoImages[0].height;
 
         sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0],0,0,imagewidth,imageheight,0,0,sceneInfo[0].objs.canvas.width,sceneInfo[0].objs.canvas.height);
-        sceneInfo[0].objs.canvas.style.height = `150vh`;
-        sceneInfo[0].objs.canvas.style.width = `150vw`;
+        sceneInfo[0].objs.canvas.style.height = `100vh`;
+        sceneInfo[0].objs.canvas.style.width = `100vw`;
+
+        var audio = new Audio(`./music/gsoulnatural.mp3`);
+        audio.play();
         
     });
     window.addEventListener('resize', ()=> {
@@ -551,7 +561,7 @@
     });
 
     window.addEventListener('orientationchange', ()=> {
-            serTimeout(setLayout, 500);
+            setTimeout(setLayout, 500);
         }
     );
     
