@@ -542,6 +542,8 @@
     
     window.addEventListener('load', ()=>{
         setLayout();
+        document.body.classList.remove('before-load');
+        setLayout();
         x_incanvas = 0.5*(sceneInfo[0].objs.canvas.width - sceneInfo[0].objs.videoImages[0].width);
         imagewidth = sceneInfo[0].objs.videoImages[0].width;
         imageheight = sceneInfo[0].objs.videoImages[0].height;
@@ -571,6 +573,10 @@
             setTimeout(setLayout, 500);
         }
     );
+
+    document.querySelector('.loading').addEventListener('transitionend', (e) => {
+        document.body.removeChild(e.currentTarget);
+    });
     
 })();
 // 스크롤 영역을 배열로 지정
