@@ -79,8 +79,9 @@ a{
     position: relative;  /*캔버스 이미지보다 위에 올라올 수 있도록 기본 static에서 relative로 설정하여 z-index 설정*/
     z-index: 5;
     top: -10vh;
-    font-size: 4rem;
+    font-size: 3rem;
     text-align: center;
+    color: white;
 }
 .main-message {
     display: flex;
@@ -89,7 +90,7 @@ a{
     top: 35vh;
     margin: 5px 0;
     height: 3em;
-    font-size: 2.5rem;
+    font-size: 1.2rem;
     opacity: 0;
     color: white;
 }
@@ -118,26 +119,27 @@ a{
     float: left ;
     /*em을 사용한 이유는 font 사이즈의 비율을 활용하기 위함, 이경우 2.5rem의 3배가 적용*/
     margin-right: 0.2em; /*font size 3rem의 0.2배*/
-    font-size: 3rem; /*html 폰트 사이즈 14px*3*/
+    font-size: 2rem; /*html 폰트 사이즈 14px*3*/
     color : rgb(29,29,31);
 }
 .desc-message {
     width : 50%;
     font-weight : bold;
     opacity: 0;
+    color: white;
 }
-.pin {
+/* .pin {
     width : 1px;
     height : 100px;
     background-color: rgb(29,29,31);
-}
+} */
 #scroll-section-2 .b {
-    top: 10%;
-    left: 40%;
+    top: 35vh;
+    text-align: center;
 }
 #scroll-section-2 .c {
-    top: 15%;
-    left: 45%;
+    top: 35vh;
+    text-align: center;
 }
 
 .mid-message{
